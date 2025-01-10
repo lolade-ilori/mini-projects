@@ -1,0 +1,41 @@
+.wrapper {
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
+   justify-content: center;
+   align-items: center;
+
+   .multiple-enable {
+    outline: none;
+   }
+
+   .accordion {
+        width: 500px;
+
+        .accordion-box {
+            background-color: #614106;
+
+            .header {
+                padding: 0.5em;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                button {
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+
+            .content {
+                padding: 0.5em;
+
+                p {
+                    color: #fff
+                }
+            }
+        }
+   }
+}
