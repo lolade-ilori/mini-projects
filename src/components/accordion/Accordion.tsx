@@ -11,16 +11,28 @@ const Accordion = () => {
     setSelected(selected == value ? null : value);
   };
 
+  // const handleMultipleSelection = (value: number) => {
+  //   let cpyMultiple: number[] = [...multiple];
+
+  //   const currentIdIndex = cpyMultiple.indexOf(value);
+
+  //   if (currentIdIndex === -1) {
+  //     cpyMultiple.push(value);
+  //   } else cpyMultiple.splice(currentIdIndex, 1);
+
+  //   setMultiple(cpyMultiple);
+  // };
+
   const handleMultipleSelection = (value: number) => {
-    let cpyMultiple: number[] = [...multiple];
-
-    const currentIdIndex = cpyMultiple.indexOf(value);
-
-    if (currentIdIndex === -1) {
+    let cpyMultiple = [...multiple];
+    if (cpyMultiple.includes(value)) {
+      // Filter the items into the array, where the item is not equal to the value
+      let newArr = cpyMultiple.filter((item) => item !== value);
+      setMultiple(newArr);
+    } else {
       cpyMultiple.push(value);
-    } else cpyMultiple.splice(currentIdIndex, 1);
-
-    setMultiple(cpyMultiple);
+      setMultiple(cpyMultiple);
+    }
   };
 
   return (
@@ -51,7 +63,7 @@ const Accordion = () => {
                 </button>
               </div>
               {enableMultiple
-                ? multiple.indexOf(item.id) !== -1 && (
+                ? multiple.includes(item.id) && (
                     <div className="content">
                       <p>{item.bodyText}</p>
                     </div>
