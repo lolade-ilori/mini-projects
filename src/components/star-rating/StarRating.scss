@@ -1,0 +1,23 @@
+.star-wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+
+    .flex-wrap {
+        display: flex;
+        gap: 5px;
+
+        .star {
+            cursor: pointer;
+            color: #ffffff;
+
+            &.active {
+                color: #fff700;
+            }
+        }
+    }
+}
