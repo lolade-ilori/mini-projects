@@ -27,6 +27,7 @@ const StarRating = ({ noOfStars }: { noOfStars: number }) => {
 
             return (
               <FaStar
+                //   Maps through teh star, checks if the index is less than the current hover or ratings value
                 className={index <= (hover || rating) ? "star active" : "star"}
                 key={index}
                 onClick={() => handleClick(index)}
