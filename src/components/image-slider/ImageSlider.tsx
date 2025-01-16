@@ -13,7 +13,7 @@ interface ImageType {
 
 const ImageSlider = ({ url, limit }: { url: string; limit: string }) => {
   const [images, setImages] = useState<ImageType[]>([]);
-  const [currentId, setCurrentId] = useState<number>(1);
+  const [currentId, setCurrentId] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,7 +27,7 @@ const ImageSlider = ({ url, limit }: { url: string; limit: string }) => {
         setImages(dataItem);
         setLoading(false);
       }
-    } catch (e) {
+    } catch (e: any) {
       setError(e.message);
       setLoading(false);
     }

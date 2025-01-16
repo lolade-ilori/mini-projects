@@ -1,0 +1,43 @@
+.loadmore-page {
+    width: 100vw;
+    height: 100%;
+    padding: 20px;
+
+    .products-wrapper {
+        display: grid;
+        // grid-template-columns: 24% 24% 24% 24%;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        justify-content: center;
+
+        .product {
+            border: solid 1px #fff;
+            
+
+            .img-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                background-color: #dad7d7;
+                
+
+                img {
+                    width: 10em
+                }
+            }
+
+            .text-wrap {
+                text-align: center;
+                margin-top: 20px;
+                word-wrap: break-word;
+            }
+        }
+    }
+
+    .loadmore-btn-wrap {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+}
