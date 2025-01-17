@@ -1,12 +1,12 @@
 // import './App.css'
 import "./scss/main.scss";
 import { AppProvider } from "./context/AppContext";
-import TreeView from "./components/tree-view/TreeView";
+import QRGenerator from "./components/qrcode-generator/QRGenerator";
 
 function App() {
   return (
     <AppProvider>
-      <TreeView />
+      <QRGenerator />
     </AppProvider>
   );
 }
