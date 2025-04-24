@@ -1,12 +1,13 @@
 // import './App.css'
 import "./scss/main.scss";
 import { AppProvider } from "./context/AppContext";
-import ModalTest from "./components/modal/ModalTest";
+import ProfileFinder from "./components/github-profile-finder/ProfileFinder";
+import RandomColor from "./components/random-color/RandomColor";
 
 function App() {
   return (
     <AppProvider>
-      <ModalTest />
+      <RandomColor />
     </AppProvider>
   );
 }
