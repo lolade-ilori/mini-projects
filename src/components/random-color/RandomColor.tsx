@@ -69,7 +69,7 @@ const RandomColor = () => {
         </div>
 
         <div className="text-wrap">
-          <h2> {colorType} Color</h2>
+          <h2> {colorType} Colors</h2>
 
           <h1>{color}</h1>
         </div>

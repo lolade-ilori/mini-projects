@@ -1,5 +1,9 @@
 name: CI-CD React Lessons
 
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERFEC_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 # Creating a trigger which tells githubActions when to run our workflow
 on:
   push:
@@ -43,3 +47,23 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/react-projects:latest
           run: |
             echo "running docker image"
+
+  push_to_vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # To deploy to vercel we use vercel cli, so we install vercel
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+
+      # Before we use vercel to build a project, we must run vercel pull
+      # This saves environment variables and project settings from the vercel cloud to a local cache in the sub folder
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
