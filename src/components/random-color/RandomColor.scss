@@ -3,11 +3,19 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     align-items: center;
 
     .flex {
         display: flex;
         gap: 10px;
+
+        button {
+            background-color: #fff;
+            color: #000;
+            outline: none;
+            border: none;
+        }
     }
 
     .text-wrap {
@@ -16,6 +24,7 @@
         h1, h2 {
             text-align: center;
             margin-top: 80px;
+            text-transform: uppercase;
         }
     }
 

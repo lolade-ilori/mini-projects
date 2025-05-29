@@ -2,85 +2,80 @@ import { useState } from "react";
 import "./RandomColor.scss";
 
 const RandomColor = () => {
-  const [color, setColor] = useState<string>("#000000");
-  const [colorType, setColorType] = useState<string>(ColorType.RGB);
+  const [colour, setColour] = useState<string>("");
+  const [colorType, setColorType] = useState<string>("hex");
 
-  const randomNumGenerator = (length: number) => {
-    let randomNum = Math.floor(Math.random() * length);
-
-    return randomNum;
+  const randomColorUtility = (value: number) => {
+    return Math.floor(Math.random() * value);
   };
 
-  const handleGenerateHex = () => {
-    setColorType(ColorType.HEX);
-    let code = "";
-    const characters = [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-    ];
+  const values: string[] = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+  ];
 
-    for (let i = 0; i < 6; i++) {
-      code += characters[randomNumGenerator(characters.length)];
+  const randomHex = () => {
+    let hex = "#";
+
+    for (let i = 0; i <= 5; i++) {
+      const rand = Math.floor(Math.random() * values.length);
+
+      hex += values[rand];
     }
 
-    setColor(`#${code}`);
+    setColour(hex);
+    setColorType("hex");
   };
 
-  const handleGenerateRbg = () => {
-    setColorType(ColorType.RGB);
+  const randomRgb = () => {
+    // NB: 256 is the max length we can pass
+    let r = randomColorUtility(256);
+    let g = randomColorUtility(256);
+    let b = randomColorUtility(256);
 
-    // Passing 256, as this is the max length we can pass
-    let r = randomNumGenerator(256);
-    let g = randomNumGenerator(256);
-    let b = randomNumGenerator(256);
-
-    setColor(`rgb(${r}, ${g}, ${b})`);
+    setColour(`rgb(${r}, ${g}, ${b})`);
+    setColorType("rgb");
   };
 
   return (
-    <>
-      <div className="parent-wrap" style={{ backgroundColor: color }}>
-        <div className="flex">
-          <button onClick={handleGenerateHex}>CREATE HEX COLOR</button>
-          <button onClick={handleGenerateRbg}>CREATE RGB COLOR</button>
-          <button
-            onClick={
-              colorType === ColorType.RGB
-                ? handleGenerateRbg
-                : handleGenerateHex
-            }
-          >
-            GENERATE RANDOM COLOR
-          </button>
+    <div className="parent-wrap" style={{ backgroundColor: colour }}>
+      <div className="flex">
+        <button onClick={randomHex}>Create HEX Color</button>
+
+        <button onClick={randomRgb}>Create RGB Color</button>
+
+        <button
+          onClick={() => (colorType === "hex" ? randomHex() : randomRgb())}
+        >
+          Generate Random Color
+        </button>
+      </div>
+
+      <div className="text-wrap">
+        <div className="">
+          <h1> {colorType} Color</h1>
         </div>
 
-        <div className="text-wrap">
-          <h2> {colorType} Colors</h2>
-
-          <h1>{color}</h1>
+        <div className="">
+          <h2>{colour}</h2>
         </div>
       </div>
-    </>
+    </div>
   );
 };
-
-enum ColorType {
-  RGB = "RGB",
-  HEX = "HEX",
-}
 
 export default RandomColor;
