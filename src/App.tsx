@@ -1,11 +1,11 @@
 import "./scss/main.scss";
 import { AppProvider } from "./context/AppContext";
-import RandomColor from "./components/random-color/RandomColor";
+import Accordion from "./components/accordion/Accordion";
 
 function App() {
   return (
     <AppProvider>
-      <RandomColor />
+      <Accordion />
     </AppProvider>
   );
 }

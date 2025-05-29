@@ -1,37 +1,24 @@
 import { useState } from "react";
-import data from "./data";
 import "./Accordion.scss";
+import data from "./data";
 
 const Accordion = () => {
-  const [selected, setSelected] = useState<number | null>(null);
-  const [enableMultiple, setEnableMultiple] = useState<boolean>(false);
-  const [multiple, setMultiple] = useState<number[]>([]);
+  const [activenum, sectActiveNum] = useState<number>(0);
+  const [activeArray, setActiveArray] = useState<number[]>([]);
+  const [multiSelect, setMultiSelect] = useState(false);
 
-  const handleSingleSelection = (value: number) => {
-    setSelected(selected == value ? null : value);
+  const handleBtnClick = (value: number) => {
+    sectActiveNum(activenum === value ? 0 : value);
   };
 
-  // const handleMultipleSelection = (value: number) => {
-  //   let cpyMultiple: number[] = [...multiple];
+  const handleMultipleSelect = (value: number) => {
+    const index = activeArray.indexOf(value);
 
-  //   const currentIdIndex = cpyMultiple.indexOf(value);
-
-  //   if (currentIdIndex === -1) {
-  //     cpyMultiple.push(value);
-  //   } else cpyMultiple.splice(currentIdIndex, 1);
-
-  //   setMultiple(cpyMultiple);
-  // };
-
-  const handleMultipleSelection = (value: number) => {
-    let cpyMultiple = [...multiple];
-    if (cpyMultiple.includes(value)) {
-      // Filter the items into the array, where the item is not equal to the value
-      let newArr = cpyMultiple.filter((item) => item !== value);
-      setMultiple(newArr);
+    if (index === -1) {
+      setActiveArray((prev) => [...prev, value]);
     } else {
-      cpyMultiple.push(value);
-      setMultiple(cpyMultiple);
+      const newArr = activeArray.filter((item) => item !== value);
+      setActiveArray(newArr);
     }
   };
 
@@ -39,42 +26,42 @@ const Accordion = () => {
     <div className="wrapper">
       <button
         className="multiple-enable"
-        onClick={() => setEnableMultiple(!enableMultiple)}
+        onClick={() => setMultiSelect(!multiSelect)}
       >
-        {enableMultiple ? "Disable Multi Selection" : "Enable Multi Selection"}
+        {multiSelect ? "Enable Single Selection" : "Enable Multi Selection"}
       </button>
 
       <div className="accordion">
-        {data &&
-          data.length > 0 &&
-          data.map((item) => (
+        {data.map((item) => {
+          return (
             <div key={item.id} className="accordion-box">
               <div className="header">
                 <h3>{item.headerText}</h3>
-
                 <button
-                  onClick={
-                    enableMultiple
-                      ? () => handleMultipleSelection(item.id)
-                      : () => handleSingleSelection(item.id)
+                  onClick={() =>
+                    multiSelect
+                      ? handleMultipleSelect(item.id)
+                      : handleBtnClick(item.id)
                   }
                 >
-                  {selected === item.id ? "-" : "+"}
+                  +
                 </button>
               </div>
-              {enableMultiple
-                ? multiple.includes(item.id) && (
-                    <div className="content">
-                      <p>{item.bodyText}</p>
-                    </div>
-                  )
-                : selected === item.id && (
-                    <div className="content">
-                      <p>{item.bodyText}</p>
-                    </div>
-                  )}
+
+              {!multiSelect && activenum === item.id && (
+                <div className="content">
+                  <p>{item.bodyText}</p>
+                </div>
+              )}
+
+              {multiSelect && activeArray.includes(item.id) && (
+                <div className="content">
+                  <p>{item.bodyText}</p>
+                </div>
+              )}
             </div>
-          ))}
+          );
+        })}
       </div>
     </div>
   );
