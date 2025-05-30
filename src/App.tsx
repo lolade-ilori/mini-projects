@@ -9,10 +9,10 @@ import LoadMore from "./components/load-more-data/LoadMore";
 function App() {
   return (
     <AppProvider>
-      {/* <Accordion />
+      <Accordion />
       <RandomColor />
       <StarRating />
-      <ImageSlider /> */}
+      <ImageSlider />
       <LoadMore />
     </AppProvider>
   );
