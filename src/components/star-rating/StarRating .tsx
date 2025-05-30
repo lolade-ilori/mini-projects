@@ -1,45 +1,40 @@
-import { useState } from "react";
-import "./StarRating.scss";
 import { FaStar } from "react-icons/fa";
+import "./StarRating.scss";
+import { useState } from "react";
 
-const StarRating = ({ noOfStars }: { noOfStars: number }) => {
-  const [rating, setRating] = useState<number>(0);
-  const [hover, setHover] = useState<number>(0);
+const StarRating = ({ noOfStars = 5 }) => {
+  const [count, setCount] = useState(0);
+  const [hover, setHover] = useState(0);
 
-  const handleClick = (currentIndex: number) => {
-    setRating(currentIndex);
-  };
+  function handleClick(index: number) {
+    setCount(index);
+  }
 
-  const handleMouseEnter = (currentIndex: number) => {
-    setHover(currentIndex);
-  };
+  function handleHover(index: number) {
+    setHover(index);
+  }
 
-  const handleMouseLeave = () => {
-    setHover(rating);
-  };
+  function handleMouseLeave() {
+    setHover(count);
+  }
+
   return (
-    <>
-      <div className="star-wrap">
-        <h1>Rate this project</h1>
-        <div className="flex-wrap">
-          {[...Array(noOfStars)].map((_, index) => {
-            index += 1;
-
-            return (
-              <FaStar
-                //   Maps through teh star, checks if the index is less than the current hover or ratings value
-                className={index <= (hover || rating) ? "star active" : "star"}
-                key={index}
-                onClick={() => handleClick(index)}
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave()}
-                size={40}
-              />
-            );
-          })}
-        </div>
+    <div className="star-wrap">
+      <div className="flex-wrap">
+        {[...Array(noOfStars)].map((_, index) => {
+          index += 1;
+          return (
+            <FaStar
+              key={index}
+              className={(hover || count) >= index ? "star active " : "star"}
+              onClick={() => handleClick(index)}
+              onMouseEnter={() => handleHover(index)}
+              onMouseLeave={handleMouseLeave}
+            />
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 };
 
