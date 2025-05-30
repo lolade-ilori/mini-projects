@@ -20,6 +20,8 @@ const StarRating = ({ noOfStars = 5 }) => {
 
   return (
     <div className="star-wrap">
+      <h1>STAR RATING</h1>
+
       <div className="flex-wrap">
         {[...Array(noOfStars)].map((_, index) => {
           index += 1;
