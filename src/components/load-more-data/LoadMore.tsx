@@ -1,70 +1,67 @@
 import { useEffect, useState } from "react";
 import "./LoadMore.scss";
 
+interface Product {
+  id: number;
+  price: number;
+  title: string;
+  thumbnail: string;
+}
+
 const LoadMore = () => {
-  const [products, setProducts] = useState<any>([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState<number>(0);
-  const [err, setErr] = useState(null);
-  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [list, setList] = useState<Product[]>([]);
 
-  const fetchProducts = async () => {
+  const getProducts = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await fetch(
-        `https://dummyjson.com/products?limit=20&skip=${
-          count === 0 ? 0 : count * 20
-        }`
+        `https://dummyjson.com/products?limit=20&skip=${total}`
       );
-      const data = await res.json();
-      console.log(data);
 
-      if (data && data.products.length > 0) {
-        setProducts((prevData: any) => [...prevData, ...data.products]);
-        setLoading(false);
+      if (res.ok) {
+        const data = await res.json();
+
+        setList((prev) =>
+          total === 0 ? data.products : [...prev, ...data.products]
+        );
       }
-    } catch (error: any) {
-      setErr(error.message);
+    } catch (error) {
+      console.log(error);
+    } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, [count]);
+    getProducts();
+  }, [total]);
 
-  useEffect(() => {
-    if (products && products.length === 100) {
-      setBtnDisabled(true);
-    }
-  }, [products]);
-
-  if (loading) return <div>Loading...</div>;
-
-  if (err !== null) return <div>Error Occured: {err}</div>;
+  if (loading) return <h1>Loading...</h1>;
 
   return (
     <div className="loadmore-page">
       <div className="products-wrapper">
-        {products.map((item: any, index: any) => (
-          <div key={index} className="product">
-            <div className="img-wrap">
-              <img src={item.thumbnail} alt={item.title} />
-            </div>
+        {list.map((item) => {
+          return (
+            <div key={item.id} className="product">
+              <div className="img-wrap">
+                <img src={item.thumbnail} alt={item.title} />
+              </div>
 
-            <div className="text-wrap">
-              <h4>{item.title}</h4>
-              <p>{item.brand}</p>
+              <div className="text-wrap"></div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <div className="loadmore-btn-wrap">
-        <button disabled={btnDisabled} onClick={() => setCount(count + 1)}>
-          Load more
-        </button>
-      </div>
+      <button
+        className="loadmore-btn-wrap"
+        onClick={() => setTotal((prev) => prev + 20)}
+      >
+        Load More
+      </button>
     </div>
   );
 };
