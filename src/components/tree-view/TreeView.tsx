@@ -1,10 +1,13 @@
-import MenuList from "./menu-list";
 import menu from "./data";
+import MenuList from "./MenuList";
+import "./TreeView.scss";
 
 const TreeView = () => {
   return (
     <div className="tree-container">
-      <MenuList list={menu} />
+      <div className="sidebar">
+        <MenuList menu={menu} />
+      </div>
     </div>
   );
 };

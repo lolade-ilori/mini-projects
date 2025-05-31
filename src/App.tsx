@@ -5,6 +5,7 @@ import Accordion from "./components/accordion/Accordion";
 import StarRating from "./components/star-rating/StarRating ";
 import ImageSlider from "./components/image-slider/ImageSlider";
 import LoadMore from "./components/load-more-data/LoadMore";
+import TreeView from "./components/tree-view/TreeView";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <StarRating />
       <ImageSlider />
       <LoadMore />
+      <TreeView />
     </AppProvider>
   );
 }
