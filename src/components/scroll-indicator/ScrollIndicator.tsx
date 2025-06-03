@@ -32,15 +32,19 @@ const ScrollIndicator = ({ url }: { url: string }) => {
 
     // Check how far down the user has scrolled
     const scrollPosition = document.documentElement.scrollTop;
+    console.log(scrollPosition, "scrollPosition");
 
     // Check the total height of the document
     const totalHeight = document.documentElement.scrollHeight;
+    console.log(totalHeight, "totalHeight");
 
     // Check the visible height of the viewport
     const viewportHeight = document.documentElement.clientHeight;
+    console.log(viewportHeight, "viewHeight");
 
     // The maximum scrollable height
     const scrollableHeight = totalHeight - viewportHeight;
+    console.log(scrollableHeight, "scrollablesheight");
 
     // Determine if the user has scrolled to the bottom
     if (scrollPosition + viewportHeight >= totalHeight) {
@@ -58,9 +62,9 @@ const ScrollIndicator = ({ url }: { url: string }) => {
 
     // on unmount
     return () => {
-      window.addEventListener("scroll", () => {});
+      window.removeEventListener("scroll", () => {});
     };
-  });
+  }, []);
 
   if (loading) return <h1>Loading...</h1>;
 
