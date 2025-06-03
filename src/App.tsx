@@ -12,13 +12,13 @@ import ScrollIndicator from "./components/scroll-indicator/ScrollIndicator";
 function App() {
   return (
     <AppProvider>
-      {/* <Accordion />
+      <Accordion />
       <RandomColor />
       <StarRating />
       <ImageSlider />
       <LoadMore />
       <TreeView />
-      <QRGenerator /> */}
+      <QRGenerator />
       <ScrollIndicator url="https://dummyjson.com/products?limit=100" />
     </AppProvider>
   );
